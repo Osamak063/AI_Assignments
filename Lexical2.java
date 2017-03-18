@@ -296,9 +296,10 @@ return false;
     continue;
     }
     else if(array[i]=='.' && flagString!=1 && flagChar!=1 && flagComment!=1){
-        if(i-1>=0){
-        if(array[i-1]<48 || array[i-1]>57){
-             if(keywordChecking(temp)){
+         if(i-1>=0){
+         if(array[i-1]<48 || array[i-1]>57){
+             
+         if(keywordChecking(temp)){
         System.out.println("("+temp+",_,"+lineCounter+")");
         temp="";
     }
@@ -309,8 +310,26 @@ return false;
     else if(identifierChecking(temp)){
          System.out.println("(ID,"+temp+","+lineCounter+")");
          temp="";
-     }   
-        }}
+     }
+     else { if(temp!="")
+        System.out.println("InvalidDot token="+temp+" at line"+lineCounter);
+        temp="";
+    }
+       if(i+1<array.length){
+       if(array[i+1]<48 || array[i+1]>57)
+       {
+       System.out.println("("+array[i]+",_,"+lineCounter+")"); 
+            continue; 
+       }
+       else {
+       dotCounter++;
+       temp=temp+array[i];
+       continue;
+       }
+           }  
+               
+         }
+         }
         ++dotCounter;
         if(dotCounter==1){
          
@@ -331,6 +350,13 @@ return false;
          System.out.println("Invalido token"+temp+"at line"+lineCounter);
          temp="";
         }
+         if(i+1<array.length){
+         if(array[i+1]>=48 && array[i+1]<=58){
+         dotCounter++;
+         temp=temp+array[i];
+         continue;
+         }
+         }
             System.out.println("("+array[i]+",_,"+lineCounter+")"); 
             continue;
         }
